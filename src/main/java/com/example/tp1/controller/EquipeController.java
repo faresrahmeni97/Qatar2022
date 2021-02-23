@@ -27,17 +27,11 @@ public class EquipeController {
     @GetMapping("/equipes")
 
     public List<Equipe> getAllEquipes() {
-        List <Equipe> pro = equipr.findAll();
-
-        for (Equipe equipe : pro) {
-            logger.debug("log:     " + equipe);
-            System.out.println("sysout:   " + equipe);
-
-        }
-        return pro;
+        List <Equipe> equipes = equipr.findAll();
+        return equipes;
 
     }
-    @PostMapping("/addequipe")
+    @PostMapping("/equipeadd")
     public Equipe createEquipe(@Valid @RequestBody Equipe equipe) {
         return equipr.save(equipe);
     }
@@ -45,7 +39,7 @@ public class EquipeController {
 
 
 
-    @DeleteMapping("/equiped/{id}")
+    @DeleteMapping("/equipedelete/{id}")
     public ResponseEntity<?> deleteEquipe(@PathVariable(value = "id") Long equipeId) {
         Equipe equipe = equipr.findById(equipeId).orElseThrow(null);
         //.orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
@@ -57,17 +51,15 @@ public class EquipeController {
     }
 
 
-    @PutMapping("/equipe/{id}")
+    @PutMapping("/equipeupdate/{id}")
     public Equipe updateEquipe(@PathVariable(value = "id") Long Id,
                                @Valid @RequestBody Equipe equipeDetails) {
 
         Equipe equipe = equipr.findById(Id).orElseThrow(null);
-
-
         equipe.setImageequipe(equipeDetails.getImageequipe());
         equipe.setNbcoupe(equipeDetails.getNbcoupe());
         equipe.setPaysequipe(equipeDetails.getPaysequipe());
-        equipe.setSystemequipenationnal(equipeDetails.getSystemequipenationnal());
+        equipe.setFormation(equipeDetails.getFormation());
 
 
         Equipe updatedEquipe = equipr.save(equipe);

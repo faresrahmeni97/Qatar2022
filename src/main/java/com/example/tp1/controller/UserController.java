@@ -34,7 +34,7 @@ public class UserController {
 
     }
 
-    @PostMapping("/addusert")
+    @PostMapping("/useradd")
     public User createUser(@Valid @RequestBody User user) {
         return userv.save(user);
     }
@@ -46,7 +46,7 @@ public class UserController {
         // .orElseThrow(() -> new ResourceNotFoundException("User", "id", Id));
     }
 
-    @DeleteMapping("/userd/{id}")
+    @DeleteMapping("/userdelete/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable(value = "id") Long userId) {
         User user = userv.findById(userId).orElseThrow(null);
         //.orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
@@ -57,7 +57,7 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/user/{id}")
+    @PutMapping("/userupdate/{id}")
     public User updateUser(@PathVariable(value = "id") Long Id,
                            @Valid @RequestBody User userDetails) {
 

@@ -48,7 +48,7 @@ public class JoueurController {
 
         return new RedirectView("/joueurs", true);
     }
-    @GetMapping("/js")
+    @GetMapping("/joueurs")
     public List<Joueur> getAllJoueurs() {
         List <Joueur> pro = joueurR.findAll();
 
@@ -60,7 +60,7 @@ public class JoueurController {
         return pro;
 
     }
-    @PostMapping("/addjoueur")
+    @PostMapping("/joueuradd")
     public Joueur createJoueur(@Valid @RequestBody Joueur joueur) {
         return joueurR.save(joueur);
     }
@@ -97,7 +97,7 @@ public class JoueurController {
         }
     }
 
-    @PutMapping("/joueur/{id}")
+    @PutMapping("/joueurupdate/{id}")
     //modifier joueur
     public Joueur updateJoueur(@PathVariable(value = "id") Long Id,
                                @Valid @RequestBody Joueur userDetails) {
@@ -110,17 +110,6 @@ public class JoueurController {
         joueur.setTitulaire(userDetails.isTitulaire());
         Joueur updatedJoueur = joueurR.save(joueur);
         return updatedJoueur;
-    }
-
-    @PutMapping("/affecterJoueur/{jid}/{eid}")
-    public void affecterUser(@PathVariable(value = "jid") Long Jid,
-                             @PathVariable(value = "eid") Long Eip,@Valid Equipe eq) {
-        List<Joueur> listj=new ArrayList<>();
-        Joueur joueur = joueurR.findById(Jid).get();
-        Equipe equipe=equipeR.findById(Eip).get();
-        listj.add(joueur);
-        equipe.setJoueurs(listj);
-        equipeR.save(equipe);
     }
 
 }

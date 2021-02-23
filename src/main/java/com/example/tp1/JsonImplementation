@@ -1,0 +1,18 @@
+
+//http://localhost:8090/api/joueuradd
+   { "id":1,
+     "nom":"lionel",
+     "prenom":"messi",
+     "clubjoueur":"barca",
+     "poste":"attaquant",
+     "numposte":10,
+     "titulaire":true,
+     "equipe":{"id":1}
+      }
+
+//http://localhost:8090/api/equipeadd
+     { "id":1,
+      "Paysequipe":"tunisie",
+      "formation":"4-4-2",
+      "nbcoupe":2,
+      "imageequipe":"photoTunisie"}

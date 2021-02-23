@@ -44,10 +44,11 @@ public class Joueur implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "equipeId", nullable = false)
+    @JsonIgnore
     private Equipe equipe;
 
     //@ManyToMany(mappedBy="joueurs",cascade=CascadeType.ALL,fetch = FetchType.LAZY)
-    @JsonIgnore
+
 
     //@JsonManagedReference//@JsonBackReference
     public void setIdequip(Equipe equipeId) {

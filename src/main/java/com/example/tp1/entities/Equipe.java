@@ -27,10 +27,9 @@ public class Equipe implements Serializable {
     private String imageequipe;
 
     @OneToMany(mappedBy="equipe", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Joueur> joueurs=new ArrayList<>();
 
-
-    @JsonIgnore
 
     //@JsonManagedReference//@JsonBackReference
 
@@ -42,11 +41,11 @@ public class Equipe implements Serializable {
     }
 
 
-    public Equipe(Long id, String Paysequipe, String Systemequipenationnal, Long nbcoupe,String imageequipe) {
+    public Equipe(Long id, String Paysequipe, String formation, Long nbcoupe,String imageequipe) {
         super();
         this.id = id;
         this.Paysequipe = Paysequipe;
-        this.formation = Systemequipenationnal;
+        this.formation = formation;
         this.nbcoupe=nbcoupe;
         this.imageequipe=imageequipe;
     }
@@ -57,9 +56,6 @@ public class Equipe implements Serializable {
     public String getPaysequipe() {
         return Paysequipe;
     }
-    public String getSystemequipenationnal() {
-        return formation;
-    }
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
@@ -68,13 +64,16 @@ public class Equipe implements Serializable {
         return nbcoupe;
     }
 
+    public String getFormation() {
+        return formation;
+    }
+
+    public void setFormation(String formation) {
+        this.formation = formation;
+    }
 
     public void setPaysequipe(String paysequipe) {
         Paysequipe = paysequipe;
-    }
-
-    public void setSystemequipenationnal(String systemequipenationnal) {
-        formation = systemequipenationnal;
     }
 
     public void setNbcoupe(Long nbcoupe) {
