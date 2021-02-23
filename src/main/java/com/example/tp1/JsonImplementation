@@ -16,3 +16,23 @@
       "formation":"4-4-2",
       "nbcoupe":2,
       "imageequipe":"photoTunisie"}
+
+//
+http://localhost:8090/signup
+        { "id":1,
+       "fname":"fares",
+       "lname":"rahmani",
+       "password":123,
+       "username":"userfares"
+      }
+
+
+http://localhost:8090/token/generate-token
+  {
+     "password":123,
+     "username":"userfares"
+    }
+
+
+http://localhost:8090/users
+--------with  generated token ---------------------
