@@ -65,10 +65,10 @@ public class UserController {
 
 
         user.setEmail(userDetails.getEmail());
-        user.setPwd(userDetails.getPwd());
+        user.setPassword(userDetails.getPassword());
         user.setFname(userDetails.getFname());
         user.setLname(userDetails.getLname());
-
+        user.setUsername(userDetails.getUsername());
         User updatedUser = userv.save(user);
         return updatedUser;
     }

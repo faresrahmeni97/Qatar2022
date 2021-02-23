@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class User implements Serializable {
@@ -17,64 +18,73 @@ public class User implements Serializable {
     @Column(name="userid")
     private Long id;
     private String email;
-    private String pwd;
+    private String password;
+    private String username;
     private String fname;
     private String lname;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "USER_ROLES", joinColumns = {
+            @JoinColumn(name = "USER_ID") }, inverseJoinColumns = {
+            @JoinColumn(name = "ROLE_ID") })
+    private Set<Role> roles;
 
-    //@ManyToMany(mappedBy="users",cascade=CascadeType.ALL,fetch = FetchType.LAZY)
-    @JsonIgnore
+    public Set<Role> getRoles() {
+        return roles;
+    }
 
-    //@JsonManagedReference//@JsonBackReference
-
-
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 
     public User() {
         super();
     }
+
     public Long getId() {
         return id;
     }
 
-
-
-    public User(Long id, String email, String pwd, String fname, String lname) {
-        super();
-        this.id = id;
-        this.email = email;
-        this.pwd = pwd;
-        this.fname = fname;
-        this.lname = lname;
-    }
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getEmail() {
         return email;
     }
+
     public void setEmail(String email) {
         this.email = email;
     }
-    public String getPwd() {
-        return pwd;
+
+    public String getPassword() {
+        return password;
     }
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
+
+    public void setPassword(String password) {
+        this.password = password;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getFname() {
         return fname;
     }
+
     public void setFname(String fname) {
         this.fname = fname;
     }
+
     public String getLname() {
         return lname;
     }
+
     public void setLname(String lname) {
         this.lname = lname;
-    }
-    @Override
-    public String toString() {
-        return "User [id=" + id + ", email=" + email + ", pwd=" + pwd + ", fname=" + fname + ", lname=" + lname
-                + "]";
     }
 }
