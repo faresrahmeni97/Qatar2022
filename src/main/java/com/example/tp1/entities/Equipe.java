@@ -30,6 +30,9 @@ public class Equipe implements Serializable {
     @JsonIgnore
     private List<Joueur> joueurs=new ArrayList<>();
 
+    @OneToMany(mappedBy = "equipe")
+    private List<Staff> stuff= new ArrayList<>();
+
 
     //@JsonManagedReference//@JsonBackReference
 
