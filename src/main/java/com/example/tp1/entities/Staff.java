@@ -17,7 +17,7 @@ public class Staff implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_Equipe")
     private Equipe equipe;
-
+//constructor
     public Staff(Long id, String nom, String prenom, String role, Equipe equipe) {
         this.id = id;
         this.nom = nom;
