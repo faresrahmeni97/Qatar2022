@@ -1,6 +1,7 @@
 package com.example.tp1.controller;
 
 
+import com.example.tp1.entities.Equipe;
 import com.example.tp1.entities.Joueur;
 import com.example.tp1.entities.Staff;
 import com.example.tp1.repository.EquipeRepository;
@@ -39,7 +40,7 @@ public class StaffController {
 
     @GetMapping("/staff")
     public List<Staff> getAllStaff() {
-        List <Staff> allStaff = staffR.findAll();
+        List<Staff> allStaff = staffR.findAll();
 
         for (Staff staff : allStaff) {
             logger.debug("log:     " + staff);
@@ -69,12 +70,22 @@ public class StaffController {
 
     @PutMapping("/staffupdate/{id}")
     public Staff updateStaff(@PathVariable(value = "id") Long Id,
-                               @Valid @RequestBody Staff staffDetails) {
+                             @Valid @RequestBody Staff staffDetails) {
 
         Staff staff = staffR.findById(Id).orElseThrow(null);
         staff.setEquipe(staffDetails.getEquipe());
 
         Staff updatedStaff = staffR.save(staff);
         return updatedStaff;
+    }
+
+    @PutMapping("/affecterstaff/{sid}/{eid}")
+    public void affecterSprint(@PathVariable(value = "sid") Long Sid,
+                               @PathVariable(value = "eid") Long Eid) {
+
+        Staff staff = staffR.findById(Sid).get();
+        Equipe equipe = equipeR.findById(Eid).get();
+        staff.setEquipe(equipe);
+        staffR.save(staff);
     }
 }

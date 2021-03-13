@@ -37,27 +37,20 @@ public class Joueur implements Serializable {
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
-
     private boolean titulaire;
-    @Column(nullable = true, length = 64)
     private String photoJoueur;
 
     @ManyToOne
-    @JoinColumn(name = "equipeId", nullable = false)
-    @JsonIgnore
     private Equipe equipe;
 
-    //@ManyToMany(mappedBy="joueurs",cascade=CascadeType.ALL,fetch = FetchType.LAZY)
+    public void setEquipe(Equipe equipe) {
+        this.equipe = equipe;
+    }
+
+//@ManyToMany(mappedBy="joueurs",cascade=CascadeType.ALL,fetch = FetchType.LAZY)
 
 
     //@JsonManagedReference//@JsonBackReference
-    public void setIdequip(Equipe equipeId) {
-        this.equipe = equipeId;
-    }
-
-    public Equipe getIdequip() {
-        return equipe;
-    }
 
 
 

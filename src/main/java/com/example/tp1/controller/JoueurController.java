@@ -2,6 +2,7 @@ package com.example.tp1.controller;
 
 import com.example.tp1.entities.Equipe;
 import com.example.tp1.entities.Joueur;
+import com.example.tp1.entities.Joueur;
 import com.example.tp1.repository.EquipeRepository;
 import com.example.tp1.repository.JoueurRepository;
 import org.apache.logging.log4j.LogManager;
@@ -110,6 +111,16 @@ public class JoueurController {
         joueur.setTitulaire(userDetails.isTitulaire());
         Joueur updatedJoueur = joueurR.save(joueur);
         return updatedJoueur;
+    }
+
+    @PutMapping("/affecterjoueur/{jid}/{eid}")
+    public void affecterSprint(@PathVariable(value = "jid") Long Jid,
+                               @PathVariable(value = "eid") Long Eid) {
+
+        Joueur joueur = joueurR.findById(Jid).get();
+        Equipe equipe = equipeR.findById(Eid).get();
+        joueur.setEquipe(equipe);
+        joueurR.save(joueur);
     }
 
 }
