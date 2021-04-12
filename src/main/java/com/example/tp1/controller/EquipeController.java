@@ -15,7 +15,7 @@ import java.util.List;
 @CrossOrigin(origins ="http://localhost:4200")
 
 @RequestMapping("/api")
-
+//aya
 public class EquipeController {
 
     private static final Logger logger = LogManager.getLogger(EquipeController.class);
