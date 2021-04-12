@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/token")
 public class AuthenticationController {
 
+
+
+
     @Autowired
     private AuthenticationManager authenticationManager;
 
