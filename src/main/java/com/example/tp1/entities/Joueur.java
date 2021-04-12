@@ -17,6 +17,7 @@ public class Joueur implements Serializable {
         return serialVersionUID;
     }
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
