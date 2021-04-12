@@ -1,6 +1,6 @@
 package com.example.tp1.controller;
 
-
+import com.example.tp1.entities.Equipe;
 import com.example.tp1.entities.Joueur;
 import com.example.tp1.entities.Staff;
 import com.example.tp1.repository.EquipeRepository;
@@ -26,7 +26,7 @@ public class StaffController {
     StaffRepository staffR;
 
     @Autowired
-    EquipeRepository equipeR;
+    EquipeRepository equipeE;
 
 
     @PostMapping("/staff/save")
@@ -67,14 +67,20 @@ public class StaffController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/staffupdate/{id}")
-    public Staff updateStaff(@PathVariable(value = "id") Long Id,
+    @PutMapping("/staffupdate/{id}/{ide}")
+    public Staff updateStaff(@PathVariable(value = "id") Long Id,@PathVariable(value = "ide") Long Ide,
                                @Valid @RequestBody Staff staffDetails) {
-
+        Equipe equipe =equipeE.findById(Ide).orElseThrow(null);
         Staff staff = staffR.findById(Id).orElseThrow(null);
         staff.setEquipe(staffDetails.getEquipe());
-
+        staff.setNom(staffDetails.getNom());
+        staff.setPrenom(staffDetails.getPrenom());
+        staff.setRole(staffDetails.getRole());
+        staff.setClub(staffDetails.getClub());
+        staff.setEquipe(staffDetails.getEquipe());
         Staff updatedStaff = staffR.save(staff);
         return updatedStaff;
     }
+
+
 }

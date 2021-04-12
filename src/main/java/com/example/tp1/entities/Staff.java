@@ -1,6 +1,4 @@
 package com.example.tp1.entities;
-
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -11,18 +9,30 @@ public class Staff implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nom;
+
+    public String getClub() {
+        return club;
+    }
+
     private String prenom;
+    private String club;
     private String role;
 
     @ManyToOne
     @JoinColumn(name = "id_Equipe")
     private Equipe equipe;
-//constructor
-    public Staff(Long id, String nom, String prenom, String role, Equipe equipe) {
+
+    public void setClub(String club) {
+        this.club = club;
+    }
+
+    //constructor
+    public Staff(Long id, String nom, String prenom, String role, String club,Equipe equipe) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
         this.role = role;
+        this.club = club;
         this.equipe = equipe;
     }
 
@@ -73,9 +83,9 @@ public class Staff implements Serializable {
     public String toString() {
         return "Staff{" +
                 "id=" + id +
-                ", nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                ", role='" + role + '\'' +
+                ", nom='" + nom  +
+                ", prenom='" + prenom  +
+                ", role='" + role  +
                 ", equipe=" + equipe +
                 '}';
     }

@@ -26,7 +26,7 @@ http://localhost:8090/signup //post
        "username":"userfares"
       }
 
-
+//ajouti ll role 9bal ma  tjineri token
 http://localhost:8090/token/generate-token //post
  {
      "password":123,

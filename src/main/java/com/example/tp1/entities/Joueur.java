@@ -12,6 +12,11 @@ public class Joueur implements Serializable {
      *
      */
     private static final long serialVersionUID = 1L;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
@@ -26,20 +31,16 @@ public class Joueur implements Serializable {
     private String photos;
 
     @ManyToOne
-    @JoinColumn(name = "equipeId", nullable = false)
+    @JoinColumn(name = "equipeId")
     private Equipe equipe;
 
     //@ManyToMany(mappedBy="joueurs",cascade=CascadeType.ALL,fetch = FetchType.LAZY)
     @JsonIgnore
 
     //@JsonManagedReference//@JsonBackReference
-    public void setIdequip(Equipe equipeId) {
-        this.equipe = equipeId;
-    }
+   // public void setIdequip(Equipe equipeId) {this.equipe = equipeId;}
 
-    public Equipe getIdequip() {
-        return equipe;
-    }
+   // public Equipe getIdequip() {return equipe;}
 
 
 
@@ -47,8 +48,27 @@ public class Joueur implements Serializable {
         super();
     }
 
-    public Equipe getEquipe() {
-        return equipe;
+
+
+    public Joueur(Long id, String clubjoueur, Long numposte, String poste, String photos,Equipe equipe) {
+        super();
+        this.id = id;
+        this.clubjoueur = clubjoueur;
+        this.numposte = numposte;
+        this.poste = poste;
+        this.photos=photos;
+        this.equipe=equipe;
+
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getclubjoueur() {
+        return clubjoueur;
+    }
+    public void setClubjoueur(String clubjoueur) {
+        this.clubjoueur = clubjoueur;
     }
     public Long getId() {
         return id;
@@ -69,33 +89,6 @@ public class Joueur implements Serializable {
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
-
-
-
-
-
-
-
-    public Joueur(Long id, String clubjoueur, Long numposte, String poste,String photos) {
-        super();
-        this.id = id;
-        this.clubjoueur = clubjoueur;
-        this.numposte = numposte;
-        this.poste = poste;
-        this.photos=photos;
-
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getclubjoueur() {
-        return clubjoueur;
-    }
-    public void setClubjoueur(String clubjoueur) {
-        this.clubjoueur = clubjoueur;
-    }
-
     public Long getnumposte() {
         return numposte;
     }
@@ -115,16 +108,22 @@ public class Joueur implements Serializable {
     public void setTitulaire(boolean titulaire) {
         this.titulaire = titulaire;
     }
+    public Equipe getEquipe() {
+        return equipe;
+    }
+    public void setEquipe(Equipe equipe) {
+        this.equipe = equipe;
+    }
 
     public void setPhotos(String photos) {this.photos = photos;}
     public String getPhotos() {
         if (photos == null || id == null) return null;
-//"../assets/images"+ "/" +
+        //"../assets/images"+ "/" +
         return   photos;
     }
     @Override
     public String toString() {
-        return "Joueur [id=" + id + ", clubjoueur=" + clubjoueur + ", numposte=" + numposte + ", poste=" + poste +", photos=" + photos + "]";
+        return "Joueur [id=" + id + ", clubjoueur=" + clubjoueur + ", numposte=" + numposte + ", poste=" + poste +", photos=" + photos + ", equipe=" + equipe + "]";
     }
 
 

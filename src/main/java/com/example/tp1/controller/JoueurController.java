@@ -1,17 +1,14 @@
 package com.example.tp1.controller;
-
 import com.example.tp1.entities.Equipe;
 import com.example.tp1.entities.Joueur;
-import com.example.tp1.entities.User;
+import com.example.tp1.entities.Staff;
 import com.example.tp1.repository.EquipeRepository;
 import com.example.tp1.repository.JoueurRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
@@ -53,6 +50,13 @@ public class JoueurController {
 
         return new RedirectView("/joueurs", true);
     }*/
+    @PostMapping("/joueur/save")
+    public RedirectView saveJoueu(Joueur joueur) throws IOException {
+
+    Joueur joueurDetails = joueurR.save(joueur);
+
+    return new RedirectView("/joueur", true);
+    }
     @GetMapping("/joueurs")
     public List<Joueur> getAllJoueurs() {
         List <Joueur> pro = joueurR.findAll();
@@ -65,7 +69,7 @@ public class JoueurController {
         return pro;
 
     }
-    @PostMapping("/joueuradd")
+    @PostMapping("/addjoueur")
     public Joueur createJoueur(@Valid @RequestBody Joueur joueur) {
         return joueurR.save(joueur);
     }
@@ -85,34 +89,20 @@ public class JoueurController {
         return ResponseEntity.ok().build();
     }
 
-/*
-    public static void saveFile(String uploadDir, String fileName,
-                                MultipartFile multipartFile) throws IOException {
-        Path uploadPath = Paths.get(uploadDir);
-//enregistrer photo joueur
-        if (!Files.exists(uploadPath)) {
-            Files.createDirectories(uploadPath);
-        }
 
-        try (InputStream inputStream = multipartFile.getInputStream()) {
-            Path filePath = uploadPath.resolve(fileName);
-            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException ioe) {
-            throw new IOException("Could not save image file: " + fileName, ioe);
-        }
-    }*/
-
-    @PutMapping("/joueurupdate/{id}")
-    //modifier joueur
-    public Joueur updateJoueur(@PathVariable(value = "id") Long Id,
-                               @Valid @RequestBody Joueur userDetails) {
-
+    @PutMapping("/joueurupdate/{id}/{ideq}")
+    public Joueur updateJoueur(@PathVariable(value = "id") Long Id, @PathVariable(value = "ideq") Long Ideq,
+                               @Valid @RequestBody Joueur joueurDetails) {
+        Equipe equipe =equipeR.findById(Ideq).orElseThrow(null);
         Joueur joueur = joueurR.findById(Id).orElseThrow(null);
-        joueur.setClubjoueur(userDetails.getclubjoueur());
-        joueur.setNumposte(userDetails.getnumposte());
-        joueur.setPoste(userDetails.getposte());
-        joueur.setPhotos(userDetails.getPhotos());
-        joueur.setTitulaire(userDetails.isTitulaire());
+        joueur.setEquipe(joueurDetails.getEquipe());
+        joueur.setClubjoueur(joueurDetails.getclubjoueur());
+        joueur.setNumposte(joueurDetails.getnumposte());
+        joueur.setNom(joueurDetails.getNom());
+        joueur.setPrenom(joueurDetails.getPrenom());
+        joueur.setPoste(joueurDetails.getposte());
+        joueur.setPhotos(joueurDetails.getPhotos());
+        joueur.setTitulaire(joueurDetails.isTitulaire());
         Joueur updatedJoueur = joueurR.save(joueur);
         return updatedJoueur;
     }
